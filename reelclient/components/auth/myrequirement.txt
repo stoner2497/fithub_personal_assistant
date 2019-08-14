@@ -1,0 +1,13 @@
+users:
+
+1.search gyms
+2.search for particular diet plans
+3.chatbot assistance for dietplans,exercise,nutrition
+4.share your daily workout,gym hours,diet palns with your friends
+5.challange any of your friend for fitness related things
+6.search for nearby gyms with detail about everything related to particular gyms
+7.buy products related to fitness on click
+
+
+admin:
+1.fullfledge Dashboard (profit/loss,growth analytics,recent user, user growth,Trainers,events packages,coupans ,schedule,user activity,events,gallery,market campaign,class calender,face recognition attendance,advertise yourself,online payment sysytem,notify users if they are not regular to gym,remainder about payment,all )

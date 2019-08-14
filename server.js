@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const passport = require("passport");
+const cors = require('cors')
 const app = express();
 require("dotenv").config();
 const port = process.env.port || 5555;
@@ -13,6 +14,8 @@ mongoose.Promise = global.Promise;
 
 // DB Config
 const db = require("./config/keys").mongoURI;
+
+app.use(cors())
 
 // Connect to MongoDB
 mongoose
