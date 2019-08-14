@@ -3,8 +3,16 @@ import {View,Text,StyleSheet,Image} from 'react-native'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import {Button,} from 'react-native-elements'
 import { Actions } from 'react-native-router-flux';
+import {connect} from 'react-redux'
 import logo from '../../img/logo.png'
-const Landing = () => {
+class Landing extends React.Component {
+    componentDidMount() {
+        console.log(this.props.user)
+        if(this.props.authenticated) {
+            Actions.main()
+        }
+    }
+    render() {
     return (
         <View style={Styles.Conatiner}>
             <Image
@@ -26,7 +34,8 @@ const Landing = () => {
             </View>
             
         </View>
-    );
+    )
+    }
 }
 
 const Styles =  StyleSheet.create({
@@ -62,4 +71,9 @@ const Styles =  StyleSheet.create({
 
 })
 
-export default Landing;
+const mapStateToProps = ({auth}) => {
+    const {authenticated,user} = auth;
+    return {authenticated,user};
+}
+
+export default connect(mapStateToProps,{})(Landing);

@@ -1,6 +1,5 @@
 import {EMAIL_CHANGED,GET_ERRORS,PASSWORD_CHANGED,ON_LOADING,LOGIN_USER_SUCCESS,LOGIN_USER_FAILURE,NAME_CHANGED,TITLE_CHANGED} from '../Actions/types'
-
-
+import isEmpty from '../utils/isEmpty'
 
 initialState = {
     authenticated:false,
@@ -13,8 +12,8 @@ initialState = {
     errors:{}
 }
 
+
 export default (state = initialState,action) => {
-    console.log(action.payload)
     switch(action.type) {
         case EMAIL_CHANGED:
             return {
@@ -46,10 +45,9 @@ export default (state = initialState,action) => {
             return {
                 ...state,
                 loading:false,
+                authenticated:!isEmpty(action.payload),
                 user:action.payload,
-                authenticated:true,
-                error:'',
-                
+                error:'',  
             }
         case LOGIN_USER_FAILURE:
             return {
@@ -64,6 +62,7 @@ export default (state = initialState,action) => {
                 errors:action.payload,
                 loading:false
             }
+        
         default:
             return state
     }

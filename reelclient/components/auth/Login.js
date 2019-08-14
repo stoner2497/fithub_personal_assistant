@@ -3,20 +3,28 @@ import {View,TextInput,Text} from 'react-native'
 import {Card, Button} from 'react-native-elements' 
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import {connect} from 'react-redux'
-import {emailChanged,passwordChanged} from '../../Actions/AuthAction'
+import {Actions} from  'react-native-router-flux'
+import {emailChanged,passwordChanged,LoginUser} from '../../Actions/AuthAction'
  class Login extends Component {
+    componentWillMount() {
+        if(this.props.authenticated) {
+            Actions.main()
+        }
+    }
     onEmailChange(text) {
       this.props.emailChanged(text)  
-        
     }
     onPasswordChange(text) {
         this.props.passwordChanged(text)  
-          
       }
 
     onSubmit() {
         const {email,password} = this.props
-        console.log(email,password)
+        const userData = {
+            email,
+            password
+        }
+        this.props.LoginUser(userData)
     }
     render() {
         return (
@@ -43,7 +51,7 @@ import {emailChanged,passwordChanged} from '../../Actions/AuthAction'
     }
 }
 const mapStateToProps = ({auth}) => {
-    const {email,password,error,loading} = auth;
-    return {email,password,error, loading};
+    const {email,password,error,loading,authenticated} = auth;
+    return {email,password,error, loading,authenticated};
 }
-export default connect(mapStateToProps,{emailChanged,passwordChanged})(Login)
+export default connect(mapStateToProps,{emailChanged,passwordChanged,LoginUser})(Login)

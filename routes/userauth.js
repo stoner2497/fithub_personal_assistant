@@ -9,7 +9,7 @@ const router = express.Router();
 const User = require("../models/User");
 const Keys = require("../config/keys");
 
-router.post("/", (req, res) => {
+router.post("/login", (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
   User.findOne({ email: email }).then(user => {
@@ -21,7 +21,9 @@ router.post("/", (req, res) => {
           const payload = {
             id: user.id,
             name: user.name,
-            avatar: user.avatar
+            avatar: user.avatar,
+            email:user.email,
+            title:user.title
           };
           jwt.sign(
             payload,
@@ -62,7 +64,6 @@ router.post("/register", (req, res) => {
       });
       bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(newUser.password, salt, (err, hash) => {
-          if (err) throw err;
           newUser.password = hash;
           newUser
             .save()

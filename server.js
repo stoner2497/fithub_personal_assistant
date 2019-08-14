@@ -5,7 +5,7 @@ const passport = require("passport");
 const cors = require('cors')
 const app = express();
 require("dotenv").config();
-const port = process.env.port || 5555;
+const port = 5000;
 
 //connecting mongo db
 //

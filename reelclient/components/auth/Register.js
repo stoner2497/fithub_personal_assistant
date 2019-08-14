@@ -4,6 +4,7 @@ import {Card, Button} from 'react-native-elements'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import {connect} from 'react-redux'
 import {emailChanged,passwordChanged,nameChanged,titleChanged,RegisterUser} from '../../Actions/AuthAction'
+
  class Register extends Component {
     onEmailChange(text) {
         this.props.emailChanged(text)  
@@ -28,6 +29,7 @@ import {emailChanged,passwordChanged,nameChanged,titleChanged,RegisterUser} from
               email,
               password
           }
+          console.log(userData)
           this.props.RegisterUser(userData)
           
       }
