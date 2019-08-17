@@ -8,7 +8,7 @@ import {emailChanged,passwordChanged,LoginUser} from '../../Actions/AuthAction'
  class Login extends Component {
     componentWillMount() {
         if(this.props.authenticated) {
-            Actions.main()
+            Actions.newsfeed()
         }
     }
     onEmailChange(text) {

@@ -56,7 +56,7 @@ export const LoginUser = userData => dispatch => {
             setAuthToken(token)
             const decoded = jwt_decode(token)
             dispatch(setCurrentUser(decoded))
-            Actions.main()
+            Actions.newsfeed()
         })  
 }
 

@@ -1,20 +1,21 @@
 import React from 'react';
-import {View,Text,StyleSheet,Image} from 'react-native'
+import {View,Text,StyleSheet,Image,ImageBackground} from 'react-native'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import {Button,} from 'react-native-elements'
 import { Actions } from 'react-native-router-flux';
 import {connect} from 'react-redux'
 import logo from '../../img/logo.png'
+import background from '../../img/login.png'
+
 class Landing extends React.Component {
-    componentDidMount() {
-        console.log(this.props.user)
-        if(this.props.authenticated) {
-            Actions.main()
-        }
-    }
+    
     render() {
-    return (
+        if(this.props.authenticated) {
+            Actions.newsfeed()
+        }
+        return (
         <View style={Styles.Conatiner}>
+              <ImageBackground source={background} style={{width: '100%', height: '100%'}}>
             <Image
             source={ logo }
             style={Styles.logo}
@@ -28,11 +29,11 @@ class Landing extends React.Component {
                 Your Personal Trainer and FitnessHub
             </Text>
             <View style={Styles.auth}>
-                <Button title="Login" onPress={Actions.login}  titleStyle={{color:'orange'}} type="solid" buttonStyle={{backgroundColor:'yellow',width:wp('40%'),marginBottom:hp('3%')}} />
+                <Button title="Login" onPress={Actions.login}  titleStyle={{color:'white'}} type="solid" buttonStyle={{backgroundColor:'#04848D',width:wp('40%'),marginBottom:hp('3%')}} />
                 
-                <Button title="Register" onPress={Actions.register}  titleStyle={{color:'orange'}} type="solid" buttonStyle={{backgroundColor:'yellow',width:wp('40%')}} />
+                <Button title="Register" onPress={Actions.register}  titleStyle={{color:'white'}} type="solid" buttonStyle={{backgroundColor:'#04848D',width:wp('40%')}} />
             </View>
-            
+            </ImageBackground>            
         </View>
     )
     }
@@ -40,8 +41,7 @@ class Landing extends React.Component {
 
 const Styles =  StyleSheet.create({
     Conatiner:{
-        flex:1,
-        backgroundColor:'#F05E23',  
+        flex:1, 
     },
     headertext:{
         justifyContent:'center',
@@ -50,7 +50,7 @@ const Styles =  StyleSheet.create({
     BrandText:{
         marginTop:wp('5%'),
         fontSize:25,
-        color:'white'
+        color:'#04848D'
     },
     logo:{
         width: 100, 
@@ -66,7 +66,7 @@ const Styles =  StyleSheet.create({
     },
     Slogan:{
         textAlign:"center",
-        color:'white'
+        color:'#04848D'
     }
 
 })
