@@ -6,3 +6,7 @@ export const ON_LOADING = "ON_LOADING";
 export const NAME_CHANGED = "NAME_CHANGED"
 export const TITLE_CHANGED = "TITLE_CHANGED"
 export const GET_ERRORS = "GET_ERRORS"
+export const ON_LOADING_FALSE = "ON_LOADING_FALSE"
+export const GET_ACCOUNT = "GET_ACCOUNT"
+export const GET_ACCOUNTS = "GET_ACCOUNTS"
+export const CHANGE_PASSWORD = "CHANGE_PASSWORD"

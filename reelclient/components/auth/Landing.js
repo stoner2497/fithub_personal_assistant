@@ -9,10 +9,12 @@ import background from '../../img/login.png'
 
 class Landing extends React.Component {
     
-    render() {
+    componentDidMount() {
         if(this.props.authenticated) {
             Actions.newsfeed()
         }
+    }
+    render() {
         return (
         <View style={Styles.Conatiner}>
               <ImageBackground source={background} style={{width: '100%', height: '100%'}}>

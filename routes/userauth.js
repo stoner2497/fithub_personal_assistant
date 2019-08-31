@@ -1,5 +1,4 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const gravatar = require("gravatar");
 const jwt = require("jsonwebtoken");
@@ -76,6 +75,52 @@ router.post("/register", (req, res) => {
     }
   });
 });
+ 
+router.post('/forget-password',async (req,res) => {
+  await User.findOne({email:req.body.email})
+           .then(user => {
+             if(!user) 
+             {
+               res.status(404).json({errors:'user not found'})
+             } else {
+               let id = user.id
+                let receiver = user.email;
+                let subject = 'change password';
+                let description = "localhost:5555/change-password/"+ id 
+                require('../config/email')(receiver,description,subject)
+                res.status(200).json(user)                 
+             } 
+           })
+})
+
+router.put('/change-password/:id', (req,res) => {
+let password = req.body.password;
+let confirmPassword = req.body.confirmPassword
+let errors = []
+
+if(password !== confirmPassword) {
+ errors.push({errors:'password dosent matach'})
+}
+if(errors.length >  0) {
+ res.status(400).json(errors)
+}else {
+ bcrypt.genSalt(10, (err, salt) => {
+   bcrypt.hash(password, salt, (err, hash) => {
+     if (err) throw err;
+     password = hash;
+     User.findByIdAndUpdate(req.params.id,{
+       $set: {
+         password:password
+       }
+     }).then(() => {
+       res.status(200).json({msg:"password changed succesfully"})
+     })
+   });
+ });
+}
+
+
+})
 
 router.get(
   "/current",

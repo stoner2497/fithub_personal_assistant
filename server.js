@@ -40,11 +40,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 //applying routes
-const GymFinder = require('./routes/gymfinder')
-const Post = require("./routes/posts");
+
 const Auth = require("./routes/userauth");
 const Account = require("./routes/Account");
-app.use("/", Auth, Post, Account,GymFinder);
+app.use("/", Auth, Account);
 
 app.listen(port, () => {
   console.log(`server is up and runing on ${port} `);

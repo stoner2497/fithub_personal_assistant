@@ -1,7 +1,8 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema
 
-const PostSchema = new Schema({
+const BlogSchema  = new Schema({
+
   User: {
     type: Schema.Types.ObjectId,
     ref: "usersapp"
@@ -12,23 +13,27 @@ const PostSchema = new Schema({
   avatar: {
     type: String
   },
-  image: {
+  Coverimage: {
     type: String,
   },
-  caption: {
-    type: String,
-    required: true
+  Title:{
+      type:String,
+      required:true
   },
-  text:{
-    type:String,
-    required:true
+  SubTitle:{
+      type:String,
+      required:true
+  },
+  Conetnt:{
+      type:String,
+      required:true
   },
   likes: [
     {
       user: {
         type: Schema.Types.ObjectId,
         ref: "usersapp"
-      }
+      },
     }
   ],
   comments: [
@@ -55,4 +60,4 @@ const PostSchema = new Schema({
   ]
 });
 
-module.exports = Posts = mongoose.model("posts", PostSchema);
+module.exports = Blogs = mongoose.model('blogs',BlogSchema)

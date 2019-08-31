@@ -7,7 +7,7 @@ const AccountSchema = new Schema({
     ref: "usersapp"
   },
   avatar: {
-    type: String
+    type:String,
   },
   userName: {
     type: String
@@ -19,18 +19,14 @@ const AccountSchema = new Schema({
     type: String,
     required: true
   },
-  follower: [
+  Subscribed:[
     {
-      type: Schema.Types.ObjectId,
-      ref: "usersapp"
-    }
-  ],
-  following: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "usersapp"
-    }
-  ]
+      user: {
+    type:Schema.Types.ObjectId,
+    ref:'subscribe'
+  }
+}
+]
 });
 
 module.exports = Account = mongoose.model("account", AccountSchema);

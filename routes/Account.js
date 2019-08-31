@@ -1,87 +1,91 @@
-const express = require("express");
-const passport = require("passport");
-const cloudinary = require("cloudinary");
-const router = express.Router();
+const express =  require('express')
+const mongoose =  require('mongoose');
+const passport = require('passport')
+const Account = require('../models/UserAccount');
+const multer = require('../config/multer')
+const router = express.Router() 
 
-const Account = require("../models/UserAccount");
 
-router.get(
-  "/useraccount",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    Account.findOne({ user: req.user.id }).then(account => {
-      if (!account) {
-        res.status(404).json({ noAccount: "No Account For user" });
-      } else {
-        res.status(200).json(account);
-      }
-    });
-  }
-);
-
-router.get('/useraccount/all', passport.authenticate('jwt',{session:false}),(req,res) => {
-  Account.find({})
-   .then(account => {
-     res.json(account)
-   }).catch(err => console.log(err))
+router.get('/userAccount',passport.authenticate('jwt',{session:false}),async (req,res) => {
+    Account.findOne({user:req.user.id})
+        .then(account => {
+            if(!account) {
+                return res.json('no user account CreateOne')
+            }else {
+                return res.json(account)
+            }
+        }).catch(err => console.log(err))
 })
 
-router.post(
-  "/useraccount",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    Account.findOne({ user: req.user.id }).then(account => {
-      if (account) {
-        res.status(400).json({ msg: "account has already been their" });
-      } else {
-        const newAccount = new Account({
-          userName: req.body.userName,
-          bio: req.body.bio,
-          avatar: req.body.avatar,
-          email: req.body.email,
-          user: req.user.id
-        });
-        newAccount.save().then(account => {
-          res.status(200).json(account);
-        });
-      }
-    });
-  }
-);
+router.post('/userAccount',multer.single('avatar'),passport.authenticate('jwt',{session:false}),(req,res) => {
+    Account.findOne({user:req.user.id})
+        .then(account => {
+            if(account) {
+                return res.json('account has been registerd')
+            }
+            const newAccount = new Account({
+                user:req.user.id,
+                userName:req.body.userName,
+                email:req.body.email,
+                title:req.body.title,
+                avatar:req.file.path,
+                bio:req.body.bio,
+            })
+            newAccount.save()
+                .then(newAccount => {
+                    res.json(newAccount)
+                })
+                .catch(err => {
+                    res.json(err)
+                })
+            
+        }).catch(err => {
+            res.json(err)
+        })
+})
 
-router.put(
-  "/useraccount",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    Account.findOneAndUpdate(
-      { user: req.user.id },
-      {
-        $set: {
-          userName: req.body.userName,
-          bio: req.body.bio,
-          avatar: req.body.avatar,
-          email: req.body.email,
-          user: req.user.id
+router.get('/useraccount/all',passport.authenticate('jwt',{session:false}),(req,res) => {
+    Account.find({})
+        .then(accounts => {
+           let account =  accounts.filter(account => {
+                account._id !== req.user.id
+            })
+            if(account.length <= 0) {
+                res.json({msg:'No Fitters yet'})
+            }else {
+                res.json(account)
+            }
+        })
+})
+
+router.get('/useraccount/:id',passport.authenticate("jwt",{session:false}),(req,res) => {
+    Account.findById({_id:req.params.id})
+        .then(account => {
+            if(!account) {
+                res.json({msg:'account dosent exist'})
+            }else {
+                res.json(account)
+            }
+        })
+})
+
+router.put('/useraccount',passport.authenticate('jwt',{session:false}),multer.single('avatar'),(req,res)  => {
+    console.log(req.file)
+    Account.findOneAndUpdate({user:req.user.id},
+     {  
+         $set:{
+            userName: req.body.userName,
+            avatar:req.file.path,
+            bio: req.body.bio,
+            email: req.body.email,
+            user: req.user.id
         }
-      }
-    )
-      .then(account => {
-        res.status(200).json(account);
-      })
-      .catch(err => res.json(err));
-  }
-);
+     }).then(account => {
+         res.json({msg:'successfully update your account'})
+     }).catch(err => console.log(err))
+})
 
-router.delete(
-  "/useraccount",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    Account.findOneAndDelete({ user: req.user.id })
-      .then(account => {
-        res.status(200).json({ msg: "suucessfullt=y deleted" });
-      })
-      .catch(err => res.json(err));
-  }
-);
 
-module.exports = router;
+
+
+module.exports = router

@@ -3,11 +3,29 @@ import {View,Text,BackHandler,StyleSheet} from 'react-native'
 import Footer from '../common/Footer'
 import {connect} from 'react-redux'
 import GroupButton from '../common/grpButtons'
+import {Card} from 'react-native-elements'
+import { Actions } from 'react-native-router-flux';
+import { 
+    AdMobBanner
+  } from 'react-native-admob'
+
 
  class newsfeed extends Component {
+     constructor(props) {
+         super(props)
+         this.onLoad.bind(this)
+     }
+     
      componentDidMount() {
         this.backHandler = BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
-      }
+        this.onLoad()
+    }
+    onLoad() {
+        const {authenticated} = this.props.auth
+        if(!authenticated){
+            Actions.push('landing')
+        }
+    }
     
       handleBackPress = () => {
         BackHandler.exitApp() // works best when the goBack is async
@@ -15,6 +33,7 @@ import GroupButton from '../common/grpButtons'
       }
     render() {
         const {user} = this.props.auth
+       
         return (
             <React.Fragment>
             <View style={Styles.body}>
@@ -22,8 +41,16 @@ import GroupButton from '../common/grpButtons'
                 <Text>
                     {user.name}
                 </Text>
-               
+               <Card>
+               <AdMobBanner
+                bannerSize="mediumRectangle"
+                
+                adUnitID="ca-app-pub-2630087167371752/4742268630"
+                testDeviceID="EMULATOR"
+                didFailToReceiveAdWithError={this.bannerError} />
+               </Card>
             </View>
+            
              <Footer />
              </React.Fragment>
         )

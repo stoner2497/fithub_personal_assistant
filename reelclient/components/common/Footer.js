@@ -1,15 +1,32 @@
 import React, { Component } from 'react'
-import {View,Text,StyleSheet,TouchableOpacity} from 'react-native'
+import {View,Text,StyleSheet,TouchableOpacity,ToastAndroid} from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { Actions } from 'react-native-router-flux';
+import ImagePicker from 'react-native-image-crop-picker';
 
 export default class Footer extends Component {
-
+    constructor(props) {
+        super(props) 
+        this.state = {
+            avatarSource:null
+        }
+    }
      onProfilePress () {
         Actions.profile()
      }
      onHomePress () {
          Actions.newsfeed()
+     }
+     camera() {
+      ImagePicker.openPicker({
+        width: 300,
+        height: 400,
+        cropping: true
+      }).then(image => {
+        console.log(image);
+      }).catch(err => {
+          return ToastAndroid.show(err.response.data,ToastAndroid.LONG)
+      })
      }
     render() {
         const Home = <Icon name="home" size={23} color="#04848D"  />;
@@ -26,7 +43,7 @@ export default class Footer extends Component {
                 <TouchableOpacity style="Styles.tabItem">
                     {bino}
                 </TouchableOpacity>
-                <TouchableOpacity style={Styles.tabItem}>
+                <TouchableOpacity style={Styles.tabItem} onPress={this.camera.bind(this)}>
                     {Add}
                 </TouchableOpacity>
                 <TouchableOpacity style="Styles.tabItem">
