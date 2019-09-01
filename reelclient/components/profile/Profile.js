@@ -28,7 +28,12 @@ import isEmpty from '../../utils/isEmpty'
         const {name,avatar,email,title} = this.props.auth.user
         const {profile} = this.props.profile
         console.log(isEmpty(profile))
-        const uri = "http:"+avatar
+        let uri
+        if(isEmpty(profile)){
+             uri = "http:"+avatar
+        }else {
+            uri = profile.avatar.path
+        }
         console.log(uri)
         let icon 
         let subscriber
