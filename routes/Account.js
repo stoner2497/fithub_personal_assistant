@@ -36,7 +36,7 @@ router.post('/userAccount',multer.single('avatar'),passport.authenticate('jwt',{
                     res.json(newAccount)
                 })
                 .catch(err => {
-                    res.json(err)
+                    res.status(404).json(err)
                 })
             
         }).catch(err => {

@@ -1,13 +1,17 @@
 import axios from 'axios';
 import {GET_ACCOUNT,GET_ACCOUNTS, GET_ERRORS, ON_LOADING} from './types'
 import { Actions } from 'react-native-router-flux';
+import {ToastAndroid} from 'react-native'
 
 export const newAccount = userdata => dispatch => {
     axios.post('http://192.168.1.10:5000/userAccount',userdata)
         .then(() => {
-            Actions.profile()
+            Actions.popAndPush('profile')
+            ToastAndroid.show('succesfully created account',ToastAndroid.LONG)
+
         })
         .catch(err => {
+            console.log(err)
             dispatch({
                 type:GET_ERRORS,
                 payload:err.response.data

@@ -13,6 +13,7 @@ import isEmpty from '../../utils/isEmpty'
  class Profile extends Component {
       profile () {
           const {profile} = this.props.profile
+          console.log(`this is ${Object.values(profile)}`)
           if(isEmpty(profile))
           {
               return (

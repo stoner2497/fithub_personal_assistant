@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {View,Text,BackHandler,StyleSheet} from 'react-native'
+import {View,Text,BackHandler,StyleSheet,ScrollView} from 'react-native'
 import Footer from '../common/Footer'
 import {connect} from 'react-redux'
 import GroupButton from '../common/grpButtons'
@@ -41,6 +41,7 @@ import {
                 <Text>
                     {user.name}
                 </Text>
+                <ScrollView>
                <Card>
                <AdMobBanner
                 bannerSize="mediumRectangle"
@@ -49,6 +50,15 @@ import {
                 testDeviceID="EMULATOR"
                 didFailToReceiveAdWithError={this.bannerError} />
                </Card>
+               <Card>
+               <AdMobBanner
+                bannerSize="mediumRectangle"
+                
+                adUnitID="ca-app-pub-2630087167371752/4742268630"
+                testDeviceID="EMULATOR"
+                didFailToReceiveAdWithError={this.bannerError} />
+               </Card>
+               </ScrollView>
             </View>
             
              <Footer />
