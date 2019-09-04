@@ -17,7 +17,7 @@ const AccountSchema = new Schema({
   },
   bio: {
     type: String,
-    required: true
+    // required: true
   },
   Subscribed:[
     {

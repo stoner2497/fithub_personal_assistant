@@ -7,10 +7,19 @@ import {Card, Avatar} from 'react-native-elements'
 import Icons from 'react-native-vector-icons/FontAwesome5'
 import {Actions} from 'react-native-router-flux'
 import { Button } from 'react-native-elements';
+import {getAccount} from '../../Actions/ProfileAction'
 import isEmpty from '../../utils/isEmpty'
 // import {Image} from 'react-native-elements'
 
  class Profile extends Component {
+      constructor() {
+          super()
+        //   this.onLoad.bind(this)
+      }
+      async componentDidMount() {
+          await this.props.getAccount()
+      }
+
       profile () {
           const {profile} = this.props.profile
           console.log(`this is ${Object.values(profile)}`)
@@ -28,12 +37,13 @@ import isEmpty from '../../utils/isEmpty'
     render() {
         const {name,avatar,email,title} = this.props.auth.user
         const {profile} = this.props.profile
+        console.log(profile)
         console.log(isEmpty(profile))
         let uri
         if(isEmpty(profile)){
              uri = "http:"+avatar
         }else {
-            uri = profile.avatar.path
+            uri = profile.avatar
         }
         console.log(uri)
         let icon 
@@ -58,10 +68,11 @@ import isEmpty from '../../utils/isEmpty'
             )
         }else {
             const {Subscribed} = profile
-            const SubScriber = Subscribed.length()
+            const SubScriber = Subscribed.length
+            console.log(Subscribed)
             subscriber = (
-                <View>
-                    <Text>Subscriber{" "}{SubScriber}</Text>
+                <View style={{top:10,justifyContent:"center",marginLeft:45,padding:20,width:widthPercentageToDP('50%'),height:heightPercentageToDP('5%'),borderBottomWidth:0.3,borderBottomColor:'#04848D'}}>
+                    <Text style={{fontSize:20}}>Subscriber {" "} {SubScriber}</Text>
                 </View>
             )
         }
@@ -236,4 +247,4 @@ const mapStateToProps = state => ({
     auth:state.auth,
     profile:state.Account
 })
-export default connect(mapStateToProps,{})(Profile)
+export default connect(mapStateToProps,{getAccount})(Profile)

@@ -17,7 +17,7 @@ router.get('/userAccount',passport.authenticate('jwt',{session:false}),async (re
         }).catch(err => console.log(err))
 })
 
-router.post('/userAccount',multer.single('avatar'),passport.authenticate('jwt',{session:false}),(req,res) => {
+router.post('/useraccount',passport.authenticate('jwt',{session:false}),multer.single('avatar'),(req,res) => {
     Account.findOne({user:req.user.id})
         .then(account => {
             if(account) {

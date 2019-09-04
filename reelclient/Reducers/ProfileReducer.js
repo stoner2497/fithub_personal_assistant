@@ -1,6 +1,7 @@
 import { GET_ERRORS, GET_ACCOUNT, ON_LOADING } from '../Actions/types';
 
 
+
 const initialState = {
     currentProfile:'',
     profiles:{},
@@ -10,6 +11,7 @@ const initialState = {
 }
 
 export default function(state = initialState,action) {
+    console.log(action.payload)
     switch(action.type){
         case ON_LOADING:
             return {

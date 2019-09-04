@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {View,Text,TouchableOpacity,Image,TextInput,StyleSheet,Picker} from 'react-native'
 import {Card,Button} from 'react-native-elements'
 import {connect} from 'react-redux'
-import ImagePicker from 'react-native-image-crop-picker';
+import ImagePicker from 'react-native-image-picker';
 import {newAccount} from '../../Actions/ProfileAction'
 import { widthPercentageToDP, heightPercentageToDP } from 'react-native-responsive-screen';
 
@@ -12,49 +12,67 @@ class createProfile extends Component {
         this.state = {
             bio:'',
             avatar:'',
-            name:this.props.auth.user.name,
+            userName:this.props.auth.user.name,
             email:this.props.auth.user.email,
             title:this.props.auth.user.title
         }
         
     }
     camera() {
-        ImagePicker.openPicker({
-          width: 300,
-          height: 400,
-          cropping: true
-        }).then(image => {
-            this.setState({
-                avatar:image
-            })
-        })
+        const options = {
+            title: 'Select Avatar',
+            customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
+            storageOptions: {
+              skipBackup: true,
+              path: 'images',
+            },
+          };
+           
+          /**
+           * The first arg is the options object for customization (it can also be null or omitted for default options),
+           * The second arg is the callback which sends object: response (more info in the API Reference)
+           */
+          ImagePicker.showImagePicker(options, (response) => {
+            console.log('Response = ', response);
+           
+            if (response.didCancel) {
+              console.log('User cancelled image picker');
+            } else if (response.error) {
+              console.log('ImagePicker Error: ', response.error);
+            } else if (response.customButton) {
+              console.log('User tapped custom button: ', response.customButton);
+            } else {
+              const source = { uri: 'data:image/jpeg;base64,' + response.data };
+           
+              this.setState({
+                avatar: response
+              });
+            }
+          });
     }
 
     onSubmit() {
-        const {name,avatar,email,title,bio} = this.state
+        const {userName,avatar,email,title,bio} = this.state
         const userData = {
-            id:this.props.auth.user.id,
-            name,
-            avatar,
+            userName,
             email,
             title,
             bio
         }
-        this.props.newAccount({userData})
+        this.props.newAccount(avatar,{userData})
     }
   
 
     render() {
         const {email,name,title} = this.props.auth.user
         const {error} = this.props.profile
-        console.log(error)
         const {bio ,avatar} = this.state
         let img 
         console.log(avatar)
         if(avatar === '') {
             img = `http:${this.props.auth.user.avatar}`
         }else {
-            img = avatar.path
+            img = avatar.uri
         }
         return (
             <View>
@@ -66,9 +84,9 @@ class createProfile extends Component {
                 </TouchableOpacity>
                 <TextInput
                     style={Styles.inputBox}
-                    value={this.state.name}
+                    value={this.state.userName}
                     name="name"
-                    onChangeText={name => {this.setState({name:name})}}
+                    onChangeText={name => {this.setState({userName:name})}}
                 />
                 <TextInput
                     style={Styles.inputBox}
