@@ -89,6 +89,7 @@ import isEmpty from '../../utils/isEmpty'
                         <TouchableOpacity onPress={this.profile.bind(this)} >
                         <Text style={Styles.UserName}>{name}{' '}{icon}</Text>
                         </TouchableOpacity>
+                        <Text>{profile.bio}</Text>
                        <View style={Styles.editAdd}>
                         
                         </View>

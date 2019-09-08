@@ -4,7 +4,7 @@ import { Actions } from 'react-native-router-flux';
 import {ToastAndroid,Platform} from 'react-native'
 
 createFormData = (photo, body) => {
-    const data = new FormData();
+    let data = new FormData();
     data.append("avatar", {
       name: photo.fileName,
       type: photo.type,
@@ -16,11 +16,11 @@ createFormData = (photo, body) => {
       data.append(key, body[key]);
     });
   
-    return data;
+    return data
   };
 
  
-export const newAccount = (avatar,{userdata}) => dispatch => { 
+export const newAccount = (avatar,userdata) => dispatch => { 
 //     const config = { headers: { 'Accept': 'application/json','Content-Type': 'multipart/form-data' },
 //     body:createFormData(avatar,{userdata})
 // };
@@ -30,18 +30,14 @@ export const newAccount = (avatar,{userdata}) => dispatch => {
 //             console.log(res)
 //             Actions.push('profile')
 //             ToastAndroid.show('succesfully created account',ToastAndroid.LONG)
-
-//         })
-//         .catch(err => {
-//             console.log(err)
-//             dispatch({
-//                 type:GET_ERRORS,
-//                 payload:err.response.data
-//             })
-//         })
+console.log(userdata)
+// axios.post('http://192.168.56.1:5000/useraccount',{
+//     method: "POST",
+//     data: createFormData(avatar, { userdata })
+//   })
 axios("http://192.168.1.10:5000/useraccount", {
     method: "POST",
-    data: createFormData(avatar, { userdata })
+    data: createFormData(avatar,  userdata )
   })
   .then(res => {
                 console.log(res)
@@ -53,10 +49,29 @@ axios("http://192.168.1.10:5000/useraccount", {
                 console.log(err)
                 dispatch({
                     type:GET_ERRORS,
-                    payload:err.response.data
+                    payload:err
                 })
             })
-}   
+};
+// let data = createFormData(avatar,  {userdata} )
+// axios("http://192.168.1.10:5000/useraccount", {
+//     method: "POST",
+//     data: createFormData(avatar,  {userdata} )
+//   },{data:data})
+//   .then(res => {
+//                 console.log(res)
+//                 Actions.push('profile')
+//                 ToastAndroid.show('succesfully created account',ToastAndroid.LONG)
+    
+//             })
+//             .catch(err => {
+//                 console.log(err)
+//                 dispatch({
+//                     type:GET_ERRORS,
+//                     payload:err.response.data
+//                 })
+//             })
+
 export const getAccount = () => {
     return dispatch => {
         axios.get('http://192.168.1.10:5000/useraccount')

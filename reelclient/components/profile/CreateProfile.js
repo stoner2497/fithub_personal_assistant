@@ -59,7 +59,8 @@ class createProfile extends Component {
             title,
             bio
         }
-        this.props.newAccount(avatar,{userData})
+        console.log(userData)
+        this.props.newAccount(avatar,userData)
     }
   
 

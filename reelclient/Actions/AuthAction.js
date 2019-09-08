@@ -51,6 +51,7 @@ export const RegisterUser = userData => dispatch => {
 
 export const LoginUser = userData => dispatch => {
     dispatch(onLoading())
+    // axios.post('http://192.168.56.1:5000/login',userData)
     axios.post('http://192.168.1.10:5000/login',userData)
         .then(res => {
             const {token} =  res.data

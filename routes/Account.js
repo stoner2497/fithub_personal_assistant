@@ -1,8 +1,10 @@
 const express =  require('express')
 const mongoose =  require('mongoose');
 const passport = require('passport')
+const cloudinary = require('cloudinary')
 const Account = require('../models/UserAccount');
 const multer = require('../config/multer')
+require("../config/cloudinary");
 const router = express.Router() 
 
 
@@ -18,17 +20,19 @@ router.get('/userAccount',passport.authenticate('jwt',{session:false}),async (re
 })
 
 router.post('/useraccount',passport.authenticate('jwt',{session:false}),multer.single('avatar'),(req,res) => {
+    console.log(req.file)
     Account.findOne({user:req.user.id})
-        .then(account => {
+        .then( async account => {
             if(account) {
                 return res.json('account has been registerd')
             }
+            let result = await cloudinary.v2.uploader.upload(req.file.path)
             const newAccount = new Account({
                 user:req.user.id,
                 userName:req.body.userName,
                 email:req.body.email,
                 title:req.body.title,
-                avatar:req.file.path,
+                avatar:result.secure_url,
                 bio:req.body.bio,
             })
             newAccount.save()
