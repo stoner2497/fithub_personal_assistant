@@ -26,7 +26,13 @@ const AccountSchema = new Schema({
     ref:'subscribe'
   }
 }
-]
+],
+  Views:[{
+    user:{
+      type:Schema.Types.ObjectId,
+      ref:'views'
+    }
+  }],
 });
 
 module.exports = Account = mongoose.model("account", AccountSchema);

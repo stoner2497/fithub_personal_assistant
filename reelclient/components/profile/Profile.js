@@ -22,7 +22,6 @@ import isEmpty from '../../utils/isEmpty'
 
       profile () {
           const {profile} = this.props.profile
-          console.log(`this is ${Object.values(profile)}`)
           if(isEmpty(profile))
           {
               return (
@@ -37,15 +36,12 @@ import isEmpty from '../../utils/isEmpty'
     render() {
         const {name,avatar,email,title} = this.props.auth.user
         const {profile} = this.props.profile
-        console.log(profile)
-        console.log(isEmpty(profile))
         let uri
         if(isEmpty(profile)){
              uri = "http:"+avatar
         }else {
             uri = profile.avatar
         }
-        console.log(uri)
         let icon 
         let subscriber
         if(isEmpty(profile)) {
@@ -69,7 +65,6 @@ import isEmpty from '../../utils/isEmpty'
         }else {
             const {Subscribed} = profile
             const SubScriber = Subscribed.length
-            console.log(Subscribed)
             subscriber = (
                 <View style={{top:10,justifyContent:"center",marginLeft:45,padding:20,width:widthPercentageToDP('50%'),height:heightPercentageToDP('5%'),borderBottomWidth:0.3,borderBottomColor:'#04848D'}}>
                     <Text style={{fontSize:20}}>Subscriber {" "} {SubScriber}</Text>
@@ -89,10 +84,9 @@ import isEmpty from '../../utils/isEmpty'
                         <TouchableOpacity onPress={this.profile.bind(this)} >
                         <Text style={Styles.UserName}>{name}{' '}{icon}</Text>
                         </TouchableOpacity>
-                        <Text>{profile.bio}</Text>
-                       <View style={Styles.editAdd}>
-                        
-                        </View>
+                        <Text>{profile.title}</Text>
+                        {console.log(profile.title)}
+                        <Text style={Styles.bio}>{profile ? profile.bio : 'here your bio will reflect'}</Text>
                         
                     </View>
                    </View>
@@ -237,7 +231,14 @@ const Styles = StyleSheet.create({
     UserName:{
         fontSize:20,
         color:'#04848D',
-        marginLeft:23.5
+        marginLeft:22.5
+    },
+    bio:{
+        fontSize:15,
+        color:'#04848D',
+        marginLeft:22.5
+        // flexDirection:'row',
+        // justifyContent:'space-around'
     },
     subScribeButton:{
         justifyContent:"center"

@@ -4,6 +4,9 @@ import {Card, Button} from 'react-native-elements'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import {connect} from 'react-redux'
 import {emailChanged,passwordChanged,nameChanged,titleChanged,RegisterUser} from '../../Actions/AuthAction'
+// import WheelPicker from '../../Wheelpicker'
+
+// const wheelPickerData = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
 
  class Register extends Component {
     onEmailChange(text) {
@@ -71,6 +74,10 @@ import {emailChanged,passwordChanged,nameChanged,titleChanged,RegisterUser} from
             secureTextEntry={true}
             style={{height: 40, borderColor: 'black', borderBottomWidth: 1,backgroundColor:'white',marginTop:5}}
             />
+           {/* <WheelPicker 
+            selectedItem={this.props.title}
+            data={wheelPickerData} 
+            onItemSelected={this.onTitleChange.bind(this)}/> */}
             <Picker
             selectedValue={this.props.title}
             style={{height: 35,backgroundColor:'white' ,width: wp('85%'),marginTop:7}}

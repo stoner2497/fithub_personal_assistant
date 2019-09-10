@@ -10,6 +10,7 @@ import CreateProfile from './components/profile/CreateProfile'
 import EditProfile from './components/profile/EditProfile'
 import ForgotPassword from './components/auth/ForgotPassword'
 import SplashScreen from './components/SplashScreen'
+import Explore from './components/explore/Explore'
 import { connect } from 'react-redux';
 import PrivateScene from './PrivateScene'
 import  Icon  from 'react-native-vector-icons/FontAwesome5';
@@ -62,6 +63,12 @@ class RouterComponent extends Component {
                     key="editProfile"
                     component={EditProfile}
                     title="Edit Profile"
+                    />
+                <Scene 
+                    key="explore"
+                    component={Explore}
+                    title="Explore Fithub"
+                    type="reset"
                     />
             </Scene>
           </Router>

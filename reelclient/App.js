@@ -5,7 +5,7 @@ import {
 import Router from './Router'
 import {Provider} from 'react-redux'
 import store from './store'
-import {setCurrentUser,onLoading,onLoadingFalse} from './Actions/AuthAction'
+import {setCurrentUser,onLoading,onLoadingFalse,logoutUser} from './Actions/AuthAction'
 import jwt_decode from 'jwt-decode'
 import setAuthToken from './utils/setAuthToken'
 import { Actions } from 'react-native-router-flux';
@@ -57,17 +57,14 @@ class App extends React.Component {
       store.dispatch(setCurrentUser(decoded));
       store.dispatch(onLoadingFalse) 
       console.log('im last')
-      Actions.newsfeed()
-      
-     
-      
-      // const currentTime = Date.now() / 1000;
-      // if (decoded.exp < currentTime) {
-      //   // Logout user
-      //   store.dispatch(logoutUser());
-      //   // Redirect to login
-      //   window.location.href = '/login';
-      // }
+      Actions.newsfeed()      
+      const currentTime = Date.now() / 1000;
+      if (decoded.exp < currentTime) {
+        // Logout user
+        store.dispatch(logoutUser());
+        // Redirect to login
+        Actions.push('landing') 
+      }
     }
     }
   

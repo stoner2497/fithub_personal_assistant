@@ -17,6 +17,9 @@ export default class Footer extends Component {
      onHomePress () {
          Actions.newsfeed()
      }
+     onExplorePress() {
+         Actions.explore()
+     }
      camera() {
       ImagePicker.openPicker({
         width: 300,
@@ -40,7 +43,7 @@ export default class Footer extends Component {
                 <TouchableOpacity style="Styles.tabItem" onPress={this.onHomePress.bind(this)}>
                     {Home}
                 </TouchableOpacity>
-                <TouchableOpacity style="Styles.tabItem">
+                <TouchableOpacity style="Styles.tabItem" onPress={this.onExplorePress.bind(this)}>
                     {bino}
                 </TouchableOpacity>
                 <TouchableOpacity style={Styles.tabItem} onPress={this.camera.bind(this)}>

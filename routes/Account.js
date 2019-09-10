@@ -49,17 +49,46 @@ router.post('/useraccount',passport.authenticate('jwt',{session:false}),multer.s
 })
 
 router.get('/useraccount/all',passport.authenticate('jwt',{session:false}),(req,res) => {
+//    const Views =  require('../models/Views')
+    const id = req.user.id
+//     let views = []
+//     if(req.user.id){
+//         views.push(req.user.id)
+//         // console.log(views)
+//         let view = new Views({
+//             user:views
+//         })
+//         view.save({}).then(views => {
+//             console.log(views)
+//         })    
+//         Views.find({})
+//             .then(res => console.log(res))  
+//     }
     Account.find({})
         .then(accounts => {
-           let account =  accounts.filter(account => {
-                account._id !== req.user.id
-            })
-            if(account.length <= 0) {
-                res.json({msg:'No Fitters yet'})
-            }else {
-                res.json(account)
-            }
-        })
+              let user = accounts.filter(account => {
+                return account.user != id 
+              });
+              if(user.length == 0 ) {
+                  res.json({msg:'no Fitters'})
+              }else {
+                  res.json(user)
+              }
+           
+        }).catch(err => res.json(err))
+})
+
+router.post('/search',(req,res) => {
+    function escapeRegex(text) {
+        return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&')
+      }
+    if (req.body.search) {
+        const regex = new RegExp(escapeRegex(req.body.search), 'gi')
+        Account.find({ userName:regex })
+          .then(article => {
+            res.json(article)
+          })
+        }
 })
 
 router.get('/useraccount/:id',passport.authenticate("jwt",{session:false}),(req,res) => {

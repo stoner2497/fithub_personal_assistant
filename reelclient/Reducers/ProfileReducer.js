@@ -1,4 +1,4 @@
-import { GET_ERRORS, GET_ACCOUNT, ON_LOADING } from '../Actions/types';
+import { GET_ERRORS, GET_ACCOUNT, ON_LOADING,GET_ACCOUNTS } from '../Actions/types';
 
 
 
@@ -22,6 +22,11 @@ export default function(state = initialState,action) {
             return {
                 ...state,
                 profile:action.payload
+            }
+        case GET_ACCOUNTS:
+            return {
+                ...state,
+                profiles:action.payload
             }
         case GET_ERRORS:
             return {
