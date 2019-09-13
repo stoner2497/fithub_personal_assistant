@@ -3,8 +3,9 @@ import {View,Text,FlatList,StyleSheet,TextInput,Image,TouchableOpacity} from 're
 import {connect} from 'react-redux' 
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Footer from '../common/Footer'
-import {getAccounts} from '../../Actions/ProfileAction'
+import {getAccounts,getUserAccount} from '../../Actions/ProfileAction'
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen'
+import { Actions } from 'react-native-router-flux';
  class Explore extends Component {
      constructor(props){
          super(props)
@@ -16,6 +17,12 @@ import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsi
      onLoad() {
          this.props.getAccounts()
      }
+     onPress(_id) {
+       Actions.userProfile({id:_id})
+     }
+     onSearch() {
+         Actions.SearchBox()
+     }
     
     render() {
         const {profiles} = this.props.profiles
@@ -24,18 +31,18 @@ import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsi
            <React.Fragment>
                <View style={Styles.Conatiner}>
                     <View style={Styles.Banner}>
-                    <TextInput
-                    style={Styles.SearchBox}
-                    placeholder="Explore Fithub"
-                    placeholderTextColor="#047481"
-                    />
+                    <TouchableOpacity onPress={this.onSearch.bind(this)} >
+                    <View style={Styles.SearchBox}>
+                        <Text style={{marginLeft:13,marginTop:10}}>Explore FITHUB</Text>
+                    </View>
+                    </TouchableOpacity>
                    <FlatList
                         data={profiles}
                         renderItem={({ item }) => (
                             <View style={Styles.flatview}>
                                 <Image source={{uri:item.avatar}} style={{width:60,height:60,borderRadius:60}} />
                                 <Text style={Styles.name}>{item.userName}</Text>
-                                <TouchableOpacity style={Styles.sidearrow}>
+                                <TouchableOpacity onPress={this.onPress.bind(this,item._id)} style={Styles.sidearrow}>
                                     {Arrow}
                                 </TouchableOpacity>
                             </View>
@@ -101,4 +108,4 @@ const Styles = StyleSheet.create({
 const mapStateToProps = state => ({
     profiles:state.Account
 })
-export default  connect(mapStateToProps,{getAccounts})(Explore) 
+export default  connect(mapStateToProps,{getAccounts,getUserAccount})(Explore) 

@@ -1,9 +1,10 @@
-import { GET_ERRORS, GET_ACCOUNT, ON_LOADING,GET_ACCOUNTS } from '../Actions/types';
+import { GET_ERRORS, GET_ACCOUNT, ON_LOADING,GET_ACCOUNTS ,GET_SPECIFIC} from '../Actions/types';
 
 
 
 const initialState = {
     currentProfile:'',
+    userProfile:{},
     profiles:{},
     profile:{},
     error:{},
@@ -27,6 +28,11 @@ export default function(state = initialState,action) {
             return {
                 ...state,
                 profiles:action.payload
+            }
+        case GET_SPECIFIC:
+            return {
+                ...state,
+                userProfile:action.payload
             }
         case GET_ERRORS:
             return {

@@ -11,6 +11,8 @@ import EditProfile from './components/profile/EditProfile'
 import ForgotPassword from './components/auth/ForgotPassword'
 import SplashScreen from './components/SplashScreen'
 import Explore from './components/explore/Explore'
+import UserProfile from './components/explore/UserProfile'
+import SearchBox from './components/search/SearchBox'
 import { connect } from 'react-redux';
 import PrivateScene from './PrivateScene'
 import  Icon  from 'react-native-vector-icons/FontAwesome5';
@@ -65,10 +67,19 @@ class RouterComponent extends Component {
                     title="Edit Profile"
                     />
                 <Scene 
+                    key="SearchBox"
+                    component={SearchBox}
+                    title="Search" />
+                <Scene 
                     key="explore"
                     component={Explore}
                     title="Explore Fithub"
                     type="reset"
+                    />
+                <Scene 
+                    key="userProfile"
+                    component={UserProfile}
+                    title='Explore'
                     />
             </Scene>
           </Router>
