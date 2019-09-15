@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const passport = require("passport");
 const cors = require('cors')
+const timeout = require('connect-timeout')
 const app = express();
 require("dotenv").config();
 const port = 5000;
@@ -42,9 +43,12 @@ app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 //applying routes
 
+app.use(timeout('5s'))
+
 const Auth = require("./routes/userauth");
 const Account = require("./routes/Account");
-app.use("/", Auth, Account);
+const Posts = require('./routes/Posts')
+app.use("/", Auth, Account,Posts);
 
 app.listen(port, () => {
   console.log(`server is up and runing on ${port} `);

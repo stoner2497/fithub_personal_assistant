@@ -78,15 +78,19 @@ router.get('/useraccount/all',passport.authenticate('jwt',{session:false}),(req,
         }).catch(err => res.json(err))
 })
 
-router.post('/search',(req,res) => {
+router.post('/search',passport.authenticate('jwt',{session:false}),(req,res) => {
     function escapeRegex(text) {
         return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&')
       }
     if (req.body.search) {
         const regex = new RegExp(escapeRegex(req.body.search), 'gi')
         Account.find({ userName:regex })
-          .then(article => {
-            res.json(article)
+          .then(result => {
+            if(!result){
+                res.status(404).json({msg:'not found'})
+            }else {
+                res.status(200).json(result)
+            }
           })
         }
 })
