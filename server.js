@@ -43,12 +43,13 @@ app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 //applying routes
 
-app.use(timeout('5s'))
+// app.use(timeout('5s'))
 
 const Auth = require("./routes/userauth");
 const Account = require("./routes/Account");
 const Posts = require('./routes/Posts')
-app.use("/", Auth, Account,Posts);
+const Subscribe = require('./routes/Subscribe')
+app.use("/", Auth, Account,Posts,Subscribe);
 
 app.listen(port, () => {
   console.log(`server is up and runing on ${port} `);

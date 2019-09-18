@@ -23,8 +23,16 @@ const AccountSchema = new Schema({
     {
       user: {
     type:Schema.Types.ObjectId,
-    ref:'subscribe'
+    ref:'userapp'
   }
+}
+],
+Subscribing:[
+  {
+    user: {
+  type:Schema.Types.ObjectId,
+  ref:'userapp'
+}
 }
 ],
   Views:[{

@@ -12,6 +12,7 @@ router.get('/userAccount',passport.authenticate('jwt',{session:false}),async (re
     Account.findOne({user:req.user.id})
         .then(account => {
             if(!account) {
+                
                 return res.json('no user account CreateOne')
             }else {
                 return res.json(account)
@@ -79,22 +80,20 @@ router.get('/useraccount/all',passport.authenticate('jwt',{session:false}),(req,
 })
 
 router.post('/search',passport.authenticate('jwt',{session:false}),(req,res) => {
-    function escapeRegex(text) {
-        return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&')
-      }
-    if (req.body.search) {
-        const regex = new RegExp(escapeRegex(req.body.search), 'gi')
-        Account.find({ userName:regex })
-          .then(result => {
-            if(!result){
-                res.status(404).json({msg:'not found'})
-            }else {
-                res.status(200).json(result)
-            }
-          })
+    const regex = new RegExp(escapeRegex(req.body.search), 'gi')
+    Account.find({ userName:regex })
+    .then(result => {
+        if(!result){
+            res.status(404).json({msg:'not found'})
+        }else {
+            res.status(200).json(result)
         }
+    })
 })
 
+function escapeRegex(text) {
+return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&')
+}
 router.get('/useraccount/:id',passport.authenticate("jwt",{session:false}),(req,res) => {
     Account.findById({_id:req.params.id})
         .then(account => {

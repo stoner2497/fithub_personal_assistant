@@ -13,21 +13,13 @@ const router =  express.Router()
 
 
 router.get('/posts',passport.authenticate('jwt',{session:false}),async (req, res) => {
-    console.log(`starting request on id:${req.user.id}`)
     Post.find({id:req.user.id})
      .then(posts => {
-         if(req.timedout){
-             if(err) {
-
-                 console.log('something went wrong ')
-             }
-             res.end()
-         }
-         else {
-            if(!posts) {
-                res.status(404).json({msg:'No posts'})
-            }
-         }
+       if (posts.length == []) {
+           res.json({msg:'no Posts'})
+       }else {
+           res.json(posts)
+       }
          
      }).catch(err => {
          res.status(400).json({msg:'something went wrong'},err)

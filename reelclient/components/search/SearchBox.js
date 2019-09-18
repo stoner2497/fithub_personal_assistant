@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
-import {View,Text,TextInput,StyleSheet,Button, TouchableOpacity} from 'react-native'
+import {View,Text,TextInput,StyleSheet,Button, TouchableOpacity, FlatList} from 'react-native'
 import {Card} from 'react-native-elements'
 import Icons from 'react-native-vector-icons/FontAwesome5'
 import {connect} from 'react-redux'
 import {searchResults} from '../../Actions/ExploreAction'
 import {heightPercentageToDP,widthPercentageToDP} from 'react-native-responsive-screen'
+
 
 class SearchBox extends Component {
     constructor(props) {
@@ -21,7 +22,12 @@ class SearchBox extends Component {
    
     render() {
         const {searchResult} = this.props.explore
-        let results = Object.keys(searchResult).map(res => {return res})
+        const  {profiles} = this.props.account 
+        let result = Object.values(searchResult).map(data => { return (
+            <View style={{width:widthPercentageToDP('95%'),borderTopWidth:2,borderTopColor:'grey'}}>
+                <Text>{data.userName}</Text>
+            </View>
+        ) })
         let icon =   <Icons name="search" size={20} color='#04848D' />
         return (
             <View >
@@ -40,11 +46,21 @@ class SearchBox extends Component {
                 </TouchableOpacity>
                </View>
                </Card>
-
+    <Card>       
+         <FlatList 
+                    data={profiles}
+                    renderItem={(item) => {
+                        <View>
+                            <Text>
+                            {item.userName}
+                        </Text>
+                        </View>
+                    }}
+                    keyExtractor={item => item.user}
+                    />
+               </Card>
                <Card>
-                   <View>
-                       <Text>{results}</Text>
-                   </View>
+                
                </Card>
             </View>
         )
@@ -73,6 +89,7 @@ const Styles = StyleSheet.create({
     }
 })
 const mapStateToProps = state => ({
-    explore:state.explore
+    explore:state.explore,
+    account:state.Account
 })
 export default connect(mapStateToProps,{searchResults})(SearchBox)
