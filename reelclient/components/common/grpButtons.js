@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {ButtonGroup} from 'react-native-elements'
 import {Text,View} from 'react-native';
+
 import Post from '../newsfeed/Post'
 
 export default class grpButtons extends Component {
@@ -17,7 +18,7 @@ export default class grpButtons extends Component {
       }
       
       render () {
-        const buttons = ['Posts', 'Diet', 'Exercise']
+        const buttons = ['Posts','Blogs']
         const { selectedIndex } = this.state
         let content
         if (selectedIndex === 0) {
@@ -31,7 +32,8 @@ export default class grpButtons extends Component {
             onPress={this.updateIndex}
             selectedIndex={selectedIndex}
             buttons={buttons}
-            containerStyle={{height: 18}}
+            containerStyle={{height: 29,borderRadius:50}}
+            warning
           />
           <View>
               {content}

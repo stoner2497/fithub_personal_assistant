@@ -12,8 +12,9 @@ const PostSchema = new Schema({
   avatar: {
     type: String
   },
-  image: {
+  post: {
     type: String,
+    required:true
   },
   caption: {
     type: String,
@@ -59,4 +60,4 @@ const PostSchema = new Schema({
   ]
 });
 
-module.exports = Posts = mongoose.model("posts", PostSchema);
+module.exports = Post = mongoose.model("posts", PostSchema);

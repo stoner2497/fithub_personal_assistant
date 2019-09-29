@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
-import {View,Text,FlatList,StyleSheet,TextInput,Image,TouchableOpacity} from 'react-native'
+import {View,Text,FlatList,StyleSheet,TextInput,Image,TouchableOpacity, ImageBackground} from 'react-native'
 import {connect} from 'react-redux' 
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Footer from '../common/Footer'
 import {getAccounts,getUserAccount} from '../../Actions/ProfileAction'
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen'
 import { Actions } from 'react-native-router-flux';
+import background from '../../img/backgroundwhite.png'
  class Explore extends Component {
      constructor(props){
          super(props)
@@ -29,6 +30,7 @@ import { Actions } from 'react-native-router-flux';
         const Arrow = <Icon name="chevron-right" size={23} color="#04848D" />
         return (
            <React.Fragment>
+               <ImageBackground source={background}  style={{width: '100%', height: '100%'}}>
                <View style={Styles.Conatiner}>
                     <View style={Styles.Banner}>
                     <TouchableOpacity onPress={this.onSearch.bind(this)} >
@@ -53,6 +55,7 @@ import { Actions } from 'react-native-router-flux';
                     </View>
                 </View>
                 <Footer />
+               </ImageBackground>
            </React.Fragment>
         )
     }

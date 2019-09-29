@@ -24,7 +24,7 @@ const BlogSchema  = new Schema({
       type:String,
       required:true
   },
-  Conetnt:{
+  Content:{
       type:String,
       required:true
   },

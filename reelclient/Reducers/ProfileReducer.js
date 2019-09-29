@@ -32,7 +32,8 @@ export default function(state = initialState,action) {
         case GET_SPECIFIC:
             return {
                 ...state,
-                userProfile:action.payload
+                userProfile:action.payload,
+                loading:false
             }
         case GET_ERRORS:
             return {

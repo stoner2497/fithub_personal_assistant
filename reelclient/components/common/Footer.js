@@ -32,11 +32,11 @@ export default class Footer extends Component {
       })
      }
     render() {
-        const Home = <Icon name="home" size={23} color="#04848D"  />;
-        const Add = <Icon name="plus" size={26} color="#04848D"  />;
-        const bino = <Icon name="binoculars" size={23} color="#04848D" />
-        const user = <Icon name="user-circle" size={23} color="#04848D" />
-        const beat = <Icon name="heartbeat" size={23} color="#04848D" />
+        const Home = <Icon name="home" size={23} color="orange"  />;
+        const Add = <Icon name="plus" size={26} color="orange"  />;
+        const bino = <Icon name="binoculars" size={23} color="orange" />
+        const user = <Icon name="user-circle" size={23} color="orange" />
+        const beat = <Icon name="heartbeat" size={23} color="orange" />
         
         return (
             <View style={Styles.tabBar}>

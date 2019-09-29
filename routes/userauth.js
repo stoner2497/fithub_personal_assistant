@@ -13,7 +13,7 @@ router.post("/login", (req, res) => {
   const password = req.body.password;
   User.findOne({ email: email }).then(user => {
     if (!user) {
-      res.status(404).json({ msg: "user already exist" });
+     return res.status(404).json({ email: "no user found" });
     } else {
       bcrypt.compare(password, user.password).then(isMatch => {
         if (isMatch) {

@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
-import {View,TextInput,Text,Picker,ToastAndroid} from 'react-native'
+import {View,TextInput,Text,Picker,ToastAndroid,ImageBackground} from 'react-native'
 import {Card, Button} from 'react-native-elements' 
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import {connect} from 'react-redux'
+import background from '../../img/background.png'
+import box from '../../img/box.png'
 import {emailChanged,passwordChanged,nameChanged,titleChanged,RegisterUser} from '../../Actions/AuthAction'
 // import WheelPicker from '../../Wheelpicker'
 
@@ -46,6 +48,13 @@ import {emailChanged,passwordChanged,nameChanged,titleChanged,RegisterUser} from
                 this.props.RegisterUser(userData)
           
       }
+      onRender = () => {
+        if(this.props.loading) {
+            return <Spinner size="small" />
+        }
+            return ( <Button title="Register" onPress={this.onSubmit.bind(this)}  type="solid" titleStyle={{color:'black'}} buttonStyle={{backgroundColor:'white',width:wp('40%'),marginTop:hp('3%'),marginHorizontal:wp('22')}} />)
+        
+    }
     render() {
       let err
 
@@ -53,8 +62,10 @@ import {emailChanged,passwordChanged,nameChanged,titleChanged,RegisterUser} from
         err = ToastAndroid.show(error,ToastAndroid.LONG)
       }
         return (
-            <View style={{backgroundColor:'#C3FEFC',height:hp('100%')}}>
-            <Card  containerStyle={{backgroundColor:'#047481'}}>
+            <View >
+             <ImageBackground source={background} style={{width: '100%', height: '100%'}}>
+            <Card containerStyle={{height:hp('50%'),paddingTop:15}} >
+            <ImageBackground source={box} style={{width: '100%', height: '100%'}}>
             <Text style={{textAlign:"center",fontSize:15,marginBottom:8,color:'white'}}>Register To Fithub Commounity</Text>
             <TextInput 
             placeholder="Name"
@@ -94,8 +105,10 @@ import {emailChanged,passwordChanged,nameChanged,titleChanged,RegisterUser} from
             <Picker.Item label="Fitness Consultant" value="Fitness Consultant" />
             
             </Picker>
-            <Button title="Register" onPress={this.onSubmit.bind(this)}  type="outline" buttonStyle={{borderColor:'blue',width:wp('40%'),marginTop:hp('3%'),marginHorizontal:wp('22')}} />
+              {this.onRender()}
+            </ImageBackground>
             </Card>
+            </ImageBackground>
             {err}
         </View>
         )

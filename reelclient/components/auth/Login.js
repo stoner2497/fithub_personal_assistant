@@ -1,10 +1,14 @@
 import React, { Component } from 'react'
-import {View,TextInput,Text,ToastAndroid,TouchableOpacity} from 'react-native'
+import {View,TextInput,Text,ToastAndroid,TouchableOpacity,ImageBackground} from 'react-native'
 import {Card, Button} from 'react-native-elements' 
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import {connect} from 'react-redux'
 import {Actions} from  'react-native-router-flux'
 import {emailChanged,passwordChanged,LoginUser} from '../../Actions/AuthAction'
+import Spinner from '../common/Spinner'
+import background from '../../img/background.png'
+import box from '../../img/box.png'
+
  class Login extends Component {
     componentDidMount() {
         if(this.props.authenticated) {
@@ -44,16 +48,26 @@ import {emailChanged,passwordChanged,LoginUser} from '../../Actions/AuthAction'
             return ToastAndroid.show('email is incorrect', ToastAndroid.SHORT);
         }
     }
+    onRender = () => {
+        if(this.props.loading) {
+            return <Spinner size="small" />
+        }
+            return (<Button title="Login" onPress={this.onSubmit.bind(this)}  type="solid" titleStyle={{color:'black'}} buttonStyle={{backgroundColor:'white',borderColor:'white',width:wp('40%'),marginTop:hp('3%'),marginHorizontal:wp('22%')}} />)
+        
+    }
     render() {
-        const {error} = this.props
-        let err 
-        if(error) {
-            err = ToastAndroid.show(error,ToastAndroid.LONG)
+      const {errors} = this.props
+      let value
+        if(errors.email) {
+            value =  ToastAndroid.show(errors.email,ToastAndroid.LONG) 
+        }else {
+            value = null
         }
         return (
-            <View style={{backgroundColor:'#C3FEFC',height:hp('100%')}} >
-                {err}
-                <Card containerStyle={{backgroundColor:'#047481',height:hp('40%'),paddingTop:15}} >
+            <View  >
+                <ImageBackground source={background} style={{width: '100%', height: '100%'}}>
+                <Card containerStyle={{height:hp('40%'),paddingTop:15}} >
+                <ImageBackground source={box} style={{width: '100%', height: '100%'}}>
                 <Text style={{textAlign:"center",fontSize:15,marginBottom:8,color:'white'}}>Login</Text>
                 <TextInput 
                 placeholder="Email"
@@ -73,14 +87,17 @@ import {emailChanged,passwordChanged,LoginUser} from '../../Actions/AuthAction'
                         Forgot password
                     </Text>
                 </TouchableOpacity>
-                <Button title="Login" onPress={this.onSubmit.bind(this)}  type="outline" buttonStyle={{borderColor:'#087990',width:wp('40%'),marginTop:hp('3%'),marginHorizontal:wp('22%')}} />
+                {this.onRender()}
+                </ImageBackground>
                 </Card>
+                {value}
+                </ImageBackground>
             </View>
         )
     }
 }
 const mapStateToProps = ({auth}) => {
-    const {email,password,error,loading,authenticated} = auth;
-    return {email,password,error, loading,authenticated};
+    const {email,password,errors,loading,authenticated} = auth;
+    return {email,password,errors, loading,authenticated};
 }
 export default connect(mapStateToProps,{emailChanged,passwordChanged,LoginUser})(Login)
