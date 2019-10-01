@@ -114,7 +114,7 @@ router.get('/newsfeed/posts',passport.authenticate('jwt',{session:false}),async(
               if(!data) {
                 res.json({msg:'no posts from your subscriber'})
               }else {
-                res.json(data)
+                res.json(...data)
               }
           })
      }).catch(err => console.log(err))

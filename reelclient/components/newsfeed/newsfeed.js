@@ -51,29 +51,9 @@ class newsfeed extends Component {
     const {Subscribing,Subscribed} = profile
     const { posts, loading } = this.props.post;
     console.log(profile)
-    if (loading) {
-      return <Spinner size="large" color="orange" />;
-    } else {
-        console.log(Subscribing)
-      if(Subscribing == 0) {
-          console.log('please connect to someone')
-      }else {
-        posts.map(post => {
-            post.map(post => {
-              if (post.length === 0) {
-                console.log("no posts");
-              } else {
-                post.map(post => {
-                  post.map(post => {
-                    console.log(post);
-                  });
-                });
-              }
-            });
-          });
-      }
-    }
-
+    if(Subscribing == 0) {
+      console.log('please connect to someone')
+  }
     return (
       <React.Fragment>
         <View style={Styles.body}>

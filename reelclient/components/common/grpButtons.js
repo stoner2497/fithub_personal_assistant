@@ -2,9 +2,12 @@ import React, { Component } from 'react'
 import {ButtonGroup} from 'react-native-elements'
 import {Text,View} from 'react-native';
 
+import background from "../../img/backgroundwhite.png";
+
 import Post from '../newsfeed/Post'
 
-export default class grpButtons extends Component {
+
+class grpButtons extends Component {
     constructor () {
         super()
         this.state = {
@@ -18,11 +21,12 @@ export default class grpButtons extends Component {
       }
       
       render () {
+        
         const buttons = ['Posts','Blogs']
         const { selectedIndex } = this.state
         let content
         if (selectedIndex === 0) {
-            content = <Post />
+            content = <Post title="hello" />
         } else {
             content = <Text>Hello</Text> 
         }
@@ -42,3 +46,8 @@ export default class grpButtons extends Component {
         )
       }
 }
+
+
+
+
+export default grpButtons
