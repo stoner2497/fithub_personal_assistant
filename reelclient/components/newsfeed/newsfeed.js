@@ -12,9 +12,14 @@ import { connect } from "react-redux";
 import GroupButton from "../common/grpButtons";
 import { Card } from "react-native-elements";
 import { Actions } from "react-native-router-flux";
-import { getSubscriberPost } from "../../Actions/PostAction";
-import {getAccount} from '../../Actions/ProfileAction'
+import { getSubscriberPost, getSubscriberBlog } from "../../Actions/PostAction";
+import { getAccount, getAccounts } from "../../Actions/ProfileAction";
 import background from "../../img/backgroundwhite.png";
+import NoProfile from "./NoProfile";
+import NoSubcriber from "./NoSubcriber";
+import isEmpty from "../../utils/isEmpty";
+import {contacts} from '../../Actions/PostAction'
+
 import Spinner from "../common/Spinner";
 import { AdMobBanner } from "react-native-admob";
 
@@ -37,7 +42,10 @@ class newsfeed extends Component {
       Actions.push("landing");
     } else {
       this.props.getSubscriberPost();
-      this.props.getAccount()
+      this.props.getSubscriberBlog();
+      this.props.getAccount();
+      this.props.getAccounts();
+      this.props.contacts()
     }
   }
 
@@ -47,13 +55,29 @@ class newsfeed extends Component {
   };
   render() {
     const { user } = this.props.auth;
-    const {profile} = this.props.profile
-    const {Subscribing,Subscribed} = profile
-    const { posts, loading } = this.props.post;
-    console.log(profile)
-    if(Subscribing == 0) {
-      console.log('please connect to someone')
-  }
+    const { profile, profiles } = this.props.profile;
+    const { Subscribing, Subscribed } = profile;
+    const { posts, loading, blogs,contacts } = this.props.post;
+    let contact
+    if (loading) {
+      return <Spinner color="orange" />;
+    }
+    if (isEmpty(profile)) {
+      // console.log(profile);
+      return <NoProfile />;
+    }
+    if (Subscribing == 0) {
+      if(!isEmpty(contacts)) {
+        contact  = contacts.forEach(contact => {
+          return contact
+        })
+        console.log(`im here  ${contact}`)
+      } 
+      console.log(profile);
+      
+      return <NoSubcriber profiles={profiles} />;
+    }
+
     return (
       <React.Fragment>
         <View style={Styles.body}>
@@ -81,9 +105,9 @@ const Styles = StyleSheet.create({
 const mapStateToProps = state => ({
   auth: state.auth,
   post: state.post,
-  profile:state.Account
+  profile: state.Account
 });
 export default connect(
   mapStateToProps,
-  { getSubscriberPost ,getAccount }
+  { getSubscriberPost, getAccount, getSubscriberBlog, getAccounts ,contacts}
 )(newsfeed);

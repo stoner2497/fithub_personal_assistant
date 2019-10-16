@@ -21,9 +21,6 @@ import background from '../../img/backgroundwhite.png'
      onPress(_id) {
        Actions.userProfile({id:_id})
      }
-     onSearch() {
-         Actions.SearchBox()
-     }
     
     render() {
         const {profiles} = this.props.profiles
@@ -33,11 +30,7 @@ import background from '../../img/backgroundwhite.png'
                <ImageBackground source={background}  style={{width: '100%', height: '100%'}}>
                <View style={Styles.Conatiner}>
                     <View style={Styles.Banner}>
-                    <TouchableOpacity onPress={this.onSearch.bind(this)} >
-                    <View style={Styles.SearchBox}>
-                        <Text style={{marginLeft:13,marginTop:10}}>Explore FITHUB</Text>
-                    </View>
-                    </TouchableOpacity>
+                   
                    <FlatList
                         data={profiles}
                         renderItem={({ item }) => (

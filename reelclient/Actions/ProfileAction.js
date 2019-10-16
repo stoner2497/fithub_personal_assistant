@@ -3,6 +3,11 @@ import {GET_ACCOUNT,GET_ACCOUNTS, GET_ERRORS, ON_LOADING, GET_SPECIFIC} from './
 import { Actions } from 'react-native-router-flux';
 import {ToastAndroid,Platform} from 'react-native'
 
+
+const proxy = 'http://192.168.1.10:5000'
+const proxy2 = 'http://192.168.56.1:5000'
+
+
 createFormData = (photo, body) => {
     let data = new FormData();
     data.append("avatar", {
@@ -21,7 +26,7 @@ createFormData = (photo, body) => {
 
  
 export const newAccount = (avatar,userdata) => dispatch => { 
-axios("http://192.168.1.10:5000/useraccount", {
+axios(`${proxy}/useraccount`, {
     method: "POST",
     data: createFormData(avatar,  userdata )
   })
@@ -44,7 +49,7 @@ axios("http://192.168.1.10:5000/useraccount", {
 export const getAccount = () => {
     return dispatch => {
         dispatch(onLoading())
-        axios.get('http://192.168.1.10:5000/useraccount')
+        axios.get(`${proxy}/useraccount`)
         .then(useraccount => {
             dispatch({
                 type:GET_ACCOUNT,
@@ -61,7 +66,7 @@ export const getAccount = () => {
 export const getAccounts  = () => {
     return dispatch => {
         dispatch(onLoading())
-        axios.get('http://192.168.1.10:5000/useraccount/all')
+        axios.get(`${proxy}/useraccount/all`)
         .then(users => {
             dispatch({
                 type:GET_ACCOUNTS,
@@ -80,7 +85,7 @@ export const getAccounts  = () => {
 export const getUserAccount = (id) => {
     return dispatch => {
         dispatch(onLoading())
-        axios.get(`http://192.168.1.10:5000/useraccount/${id}`)
+        axios.get(`${proxy}/useraccount/${id}`)
             .then(res => {
                 dispatch({
                     type:GET_SPECIFIC,

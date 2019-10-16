@@ -22,6 +22,7 @@ class UserProfile extends Component {
   // onLoad() {
   //   // this.props.getUserAccount(this.props.id);
   // }
+  
   render() {
     const { userProfile, loading } = this.props.profiles;
     const { avatar, userName, title, bio, user, Subscribed } = userProfile;

@@ -10,22 +10,13 @@ import jwt_decode from 'jwt-decode'
 import setAuthToken from './utils/setAuthToken'
 import { Actions } from 'react-native-router-flux';
 import AsyncStorage from '@react-native-community/async-storage';
-
-
+// import Contacts from 'react-native-contacts'
 
 async function requestCameraPermission() {
   try {
-    const granted = await PermissionsAndroid.request(
-      PermissionsAndroid.PERMISSIONS.CAMERA,
-      {
-        title: 'Cool Photo App Camera Permission',
-        message:
-          'Cool Photo App needs access to your camera ' +
-          'so you can take awesome pictures.',
-        buttonNeutral: 'Ask Me Later',
-        buttonNegative: 'Cancel',
-        buttonPositive: 'OK',
-      },
+    const granted = await PermissionsAndroid.requestMultiple(
+      [PermissionsAndroid.PERMISSIONS.CAMERA,
+      PermissionsAndroid.PERMISSIONS.READ_CONTACTS,]
     );
     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
       console.log('You can use the camera');
@@ -42,7 +33,8 @@ class App extends React.Component {
     super(props)
     this.func = this.func.bind(this)
     this.func()
-    console.log('im constructor')
+    // console.log('im constructor')
+    
   }
    func = async () => {
   
@@ -71,7 +63,7 @@ class App extends React.Component {
   async componentDidMount() {
     console.log('then im')
      await requestCameraPermission()
-  
+     
    }
   render() {
     return (
@@ -80,6 +72,7 @@ class App extends React.Component {
       </Provider>
     );
   }
+  
 
 };
 

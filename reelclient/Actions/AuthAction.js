@@ -5,6 +5,9 @@ import {  Actions } from 'react-native-router-flux'
 import {ToastAndroid} from 'react-native';
 import jwt_decode from 'jwt-decode';
 
+const proxy = 'http://192.168.1.10:5000'
+const proxy2 = 'http://192.168.56.1:5000'
+
 import setAuthToken from '../utils/setAuthToken'
 
 export const emailChanged = (text) => {
@@ -33,7 +36,7 @@ export const titleChanged = (text) => {
 }
 
 export const RegisterUser = userData => dispatch => {
-     axios.post('http://192.168.1.10:5000/register',userData)
+     axios.post(`${proxy}/register`,userData)
         .then(res => 
             {
                 console.log(res.data)
@@ -52,7 +55,7 @@ export const RegisterUser = userData => dispatch => {
 export const LoginUser = userData => dispatch => {
     dispatch(onLoading())
     // axios.post('http://192.168.56.1:5000/login',userData)
-    axios.post('http://192.168.1.10:5000/login',userData)
+    axios.post(`${proxy}/login`,userData)
         .then(res => {
             const {token} =  res.data
             AsyncStorage.setItem('jwttoken',token)
@@ -63,14 +66,14 @@ export const LoginUser = userData => dispatch => {
         }).catch(err => {
             dispatch({
                 type:GET_ERRORS,
-                payload:err.response.data
+                payload:err
             })
         })
 }
 
 export const forgotPassword = userData => dispatch => {
     dispatch(onLoading())
-    axios.post('http://192.168.1.10:5000/forget-password',userData)
+    axios.post(`${proxy2}/forget-password`,userData)
         .then(() => {
             Actions.forgotpassword()
         })

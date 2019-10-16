@@ -71,7 +71,7 @@ router.get('/useraccount/all',passport.authenticate('jwt',{session:false}),(req,
                 return account.user != id 
               });
               if(user.length == 0 ) {
-                  res.json({msg:'no Fitters'})
+                  res.json(user)
               }else {
                   res.json(user)
               }

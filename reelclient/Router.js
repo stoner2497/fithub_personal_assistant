@@ -20,6 +20,7 @@ import  Icon  from 'react-native-vector-icons/FontAwesome5';
 class RouterComponent extends Component {
     render() {
        const hamburger = <Icon name="hamburger" size={30} />
+       let searchIcon = <Icon name="searchengin" size={25} color="#FA5606" />
         return (
             <Router>
             <Scene key="root">
@@ -75,6 +76,8 @@ class RouterComponent extends Component {
                     component={Explore}
                     title="Explore Fithub"
                     type="reset"
+                    onRight={() => Actions.SearchBox()}
+                    rightTitle={searchIcon}
                     />
                 <Scene 
                     key="userProfile"
