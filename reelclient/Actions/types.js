@@ -17,4 +17,4 @@ export const GET_POST = "GET_POST"
 export const GET_SUBSCRIBER_POST = "GET_SUBSCRIBER_POST"
 export const GET_SUBSCRIBER_BLOG = "GET_SUBSCRIBER_BLOG"
 export const GET_CONTACTS =  "GET_CONTACTS"
-
+export const GET_LIKES = "GET_LIKES"

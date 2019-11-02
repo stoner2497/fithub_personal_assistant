@@ -4,9 +4,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import {  Actions } from 'react-native-router-flux'
 import {ToastAndroid} from 'react-native';
 import jwt_decode from 'jwt-decode';
-
-const proxy = 'http://192.168.1.10:5000'
-const proxy2 = 'http://192.168.56.1:5000'
+import {proxy} from './proxy'
 
 import setAuthToken from '../utils/setAuthToken'
 
@@ -54,7 +52,6 @@ export const RegisterUser = userData => dispatch => {
 
 export const LoginUser = userData => dispatch => {
     dispatch(onLoading())
-    // axios.post('http://192.168.56.1:5000/login',userData)
     axios.post(`${proxy}/login`,userData)
         .then(res => {
             const {token} =  res.data

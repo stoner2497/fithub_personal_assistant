@@ -179,7 +179,7 @@ router.get(
   }
 );
 
-router.post(
+router.get(
   "/likes/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
@@ -199,7 +199,7 @@ router.post(
             post.likes.unshift({ user: req.user.id });
 
             post.save().then(post => {
-              res.status(200).json({ post });
+              res.status(200).json(post.likes.length);
             });
           })
           .catch(err =>
@@ -210,7 +210,8 @@ router.post(
   }
 );
 
-router.post(
+
+router.get(
   "/unlike/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {

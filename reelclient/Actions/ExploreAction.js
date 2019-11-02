@@ -1,10 +1,7 @@
 import { SEARCH_ACCOUNT } from './types'
 import axios from 'axios'
 
-
-const proxy = 'http://192.168.1.10:5000'
-const proxy2 = 'http://192.168.56.1:5000'
-
+import {proxy} from './proxy'
 
 
 export const searchResults = search => dispatch => {

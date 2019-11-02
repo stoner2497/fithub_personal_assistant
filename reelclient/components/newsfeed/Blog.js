@@ -7,7 +7,9 @@ import {
   ScrollView,
   FlatList,
   TouchableHighlight,
-  TouchableOpacity
+  TouchableOpacity,
+  ImageBackground,
+  Button
 } from "react-native";
 import { getSubscriberPost } from "../../Actions/PostAction";
 import { getAccount } from "../../Actions/ProfileAction";
@@ -37,18 +39,23 @@ class Blogs extends Component {
     } else {
       // console.log(blogs)
       content = blogs.flatMap(blog => {
-        return blog.flatMap(blog => {
-          if(isEmpty(blog)) {
-          return  console.log('blog')
-          }else {
-            return blog
-          }
-        })
+        if(isEmpty(blog)) {
+          return <Text>No Blogs</Text>
+        }else {
+          return blog.flatMap(blog => {
+            if(isEmpty(blog)) {
+            return  console.log('blog')
+            }else {
+              return blog
+            }
+          })
+        }
+        
       });
     }
     return (
       <React.Fragment>
-        {/* <FlatList
+        <FlatList
           style={{ marginBottom: 10 }}
           data={content}
           renderItem={({ item }) => (
@@ -61,7 +68,12 @@ class Blogs extends Component {
                 </View>
               </View>
               <View style={Styles.CardSection}>
-                <Image source={{ uri: item.post }} style={Styles.Main} />
+                <ImageBackground source={{uri:item.Coverimage}} style={Styles.Main} >
+                <View style={Styles.TextBox}>
+                <Text style={{color:'white',fontSize:30}} >{item.Title}</Text>
+                <Text style={{color:'white',fontSize:20}}>{item.SubTitle}</Text>
+                </View>
+                </ImageBackground>
               </View>
               <View style={Styles.CardSection}>
                 <View>
@@ -72,10 +84,11 @@ class Blogs extends Component {
                 </View>
                 <View></View>
               </View>
+              <Button style={{alignSelf:'flex-end'}} title="READ"/>
             </Card>
           )}
           keyExtractor={item => item.user}
-        /> */}
+        />
         {/* {hell} */}
         <AdMobBanner
           bannerSize="mediumRectangle"
@@ -121,7 +134,13 @@ const Styles = StyleSheet.create({
     width: widthPercentageToDP("83%"),
     height: heightPercentageToDP("40%")
   },
-  setIcon: {}
+  setIcon: {},
+  TextBox:{
+    width:widthPercentageToDP('50%'),
+    alignSelf:'center',
+    backgroundColor:'rgba(0,0,0,0.5)',
+    alignItems:'center'
+  }
 });
 
 const mapStateToProps = state => ({

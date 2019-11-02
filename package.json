@@ -32,6 +32,7 @@
     "passport-jwt": "^4.0.0",
     "react-card-flip": "^0.7.1",
     "react-native-responsive-screen": "^1.2.2",
+    "socket.io": "^2.3.0",
     "xoauth2": "^1.2.0"
   }
 }

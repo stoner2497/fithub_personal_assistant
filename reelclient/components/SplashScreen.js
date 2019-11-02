@@ -11,7 +11,7 @@ class SplashScreen extends React.Component{
     render () {
         setTimeout(() => {
             Actions.newsfeed();
-        }, 2000);
+        },500);
         return (
         <View>
              <ImageBackground source={Background} style={{width: '100%', height: '100%'}} />

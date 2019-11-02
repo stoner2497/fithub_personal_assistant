@@ -2,12 +2,7 @@ import axios from 'axios';
 import {GET_ACCOUNT,GET_ACCOUNTS, GET_ERRORS, ON_LOADING, GET_SPECIFIC} from './types'
 import { Actions } from 'react-native-router-flux';
 import {ToastAndroid,Platform} from 'react-native'
-
-
-const proxy = 'http://192.168.1.10:5000'
-const proxy2 = 'http://192.168.56.1:5000'
-
-
+import {proxy} from './proxy'
 createFormData = (photo, body) => {
     let data = new FormData();
     data.append("avatar", {
