@@ -19,6 +19,9 @@ class UserProfile extends Component {
     this.props.getUserAccount(this.props.id);
     // this.onLoad();
   }
+  OnUnSubScribe = () => {
+    
+  }
   // onLoad() {
   //   // this.props.getUserAccount(this.props.id);
   // }
@@ -37,7 +40,7 @@ class UserProfile extends Component {
       }else {
         Subscribed.map(sub => {
           if(sub.user == id) {
-            btn = <Button title="unsubscribe" />
+            btn = <Button title="unsubscribe" onPress={this.OnUnSubScribe} />
           }else {
             btn = <Button  title="subscribe" />
           }

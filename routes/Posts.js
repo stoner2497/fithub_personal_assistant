@@ -199,7 +199,7 @@ router.get(
             post.likes.unshift({ user: req.user.id });
 
             post.save().then(post => {
-              res.status(200).json(post.likes.length);
+              res.status(200).json(post);
             });
           })
           .catch(err =>

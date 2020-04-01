@@ -28,7 +28,7 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 
 let content;
 let likess;
-let comments 
+let comments;
 
 class Post extends Component {
   state = {
@@ -73,13 +73,6 @@ class Post extends Component {
           });
         }
       });
-      comments = content.flatMap(data => {
-        if(isEmpty(data.comments)) {
-          return <Text> No comments  </Text>
-        }else {
-           return data.comments
-        }
-      })
     }
 
     return (
@@ -94,26 +87,27 @@ class Post extends Component {
         >
           <View style={Styles.CommentBox}>
             <View>
-            <Card>
-          <View style={Styles.section}>
-            <TextInput
-              placeholder='write comment'
-              style={Styles.SearchBox}
-              value={this.state.search}
-              onChangeText={search => {
-                this.setState({ search });
-              }}
-            />
-            <TouchableOpacity>
-              <Text style={Styles.search}>{icon}</Text>
-            </TouchableOpacity>
-          </View>
-        </Card>
+              <Card>
+                <View style={Styles.section}>
+                  <TextInput
+                    placeholder="write comment"
+                    style={Styles.SearchBox}
+                    value={this.state.search}
+                    onChangeText={search => {
+                      this.setState({ search });
+                    }}
+                  />
+                  <TouchableOpacity>
+                    <Text style={Styles.search}>{icon}</Text>
+                  </TouchableOpacity>
+                </View>
+              </Card>
             </View>
-            <View style={{felx:1}}>
-                <Card style={{alignItems:'center'}}>
-                  {comments}
-                </Card>
+            <View style={{ felx: 1 }}>
+              <Card >
+                {isEmpty(content.comment) ? <Text style={{alignSelf:'center'}}>No Comments</Text> :<View> <Text>{content.comment}</Text> </View>}
+                <Text></Text>
+              </Card>
             </View>
           </View>
         </Modal>
@@ -140,7 +134,7 @@ class Post extends Component {
                       <Image source={set} />
                     </TouchableOpacity>
                     <Text style={{ marginLeft: 5 }}>
-                      {isEmpty(likes) ? item.likes.length : likes} Set
+                      {item.likes.length} Set
                     </Text>
                     <TouchableOpacity
                       onPress={() => {
@@ -219,8 +213,8 @@ const Styles = StyleSheet.create({
     width: widthPercentageToDP("83%"),
     height: heightPercentageToDP("40%")
   },
-  CommentBox:{
-    justifyContent:'center'
+  CommentBox: {
+    justifyContent: "center"
   }
 });
 

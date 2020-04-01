@@ -34,16 +34,16 @@ import box from '../../img/box.png'
             password
         }
         if(emailvalidate.test(email)){
-            if(password.length > 6) {
+            // if(password.length > 6) {
                 if(error) {
                     return ToastAndroid.show(error,ToastAndroid.LONG)
                 }else {
                     this.props.LoginUser(userData)
                 }   
-            }else {
-                return ToastAndroid.show('password Should be atleast 6 character long', ToastAndroid.SHORT);
+            // }else {
+            //     return ToastAndroid.show('password Should be atleast 6 character long', ToastAndroid.SHORT);
                 
-            }
+            // }
         }else {
             return ToastAndroid.show('email is incorrect', ToastAndroid.SHORT);
         }

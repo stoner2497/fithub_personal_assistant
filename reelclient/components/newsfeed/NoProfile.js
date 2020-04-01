@@ -17,7 +17,7 @@ export default class NoProfile extends Component {
               style={{
                 textAlign: "center",
                 fontSize: 26,
-                marginTop: 235,
+                marginTop: 260,
                 color: "#FA5606"
               }}
             >
@@ -30,6 +30,7 @@ export default class NoProfile extends Component {
                 alignItems:'center',
                 justifyContent:'center',
                 marginTop: 9,
+                backgroudnColor:'#FA5606'
             }}  title="Continue >>"
             onPress={() => Actions.createProfile()} />
           

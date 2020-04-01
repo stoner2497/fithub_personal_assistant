@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema
 
+
+const date = new Date()
+let currentDate = date.toLocaleDateString()
+let currenttime = date.toLocaleTimeString() 
+let full = `${currentDate} ${currenttime}` 
 const BlogSchema  = new Schema({
 
   User: {
@@ -54,10 +59,14 @@ const BlogSchema  = new Schema({
       },
       date: {
         type: Date,
-        default: Date.now
+        default: full
       }
-    }
-  ]
+    },
+  ],
+  createdAt:{
+    type:Date,
+    default:full
+  }
 });
 
 module.exports = Blogs = mongoose.model('blogs',BlogSchema)

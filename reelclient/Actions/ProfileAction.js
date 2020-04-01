@@ -3,6 +3,7 @@ import {GET_ACCOUNT,GET_ACCOUNTS, GET_ERRORS, ON_LOADING, GET_SPECIFIC} from './
 import { Actions } from 'react-native-router-flux';
 import {ToastAndroid,Platform} from 'react-native'
 import {proxy} from './proxy'
+
 createFormData = (photo, body) => {
     let data = new FormData();
     data.append("avatar", {

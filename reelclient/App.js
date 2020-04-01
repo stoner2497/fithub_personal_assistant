@@ -50,13 +50,6 @@ class App extends React.Component {
       store.dispatch(onLoadingFalse) 
       console.log('im last')
       Actions.newsfeed()      
-      const currentTime = Date.now() / 1000;
-      if (decoded.exp < currentTime) {
-        // Logout user
-        store.dispatch(logoutUser());
-        // Redirect to login
-        Actions.push('landing') 
-      }
     }
     }
   

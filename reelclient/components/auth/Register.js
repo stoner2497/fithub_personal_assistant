@@ -6,6 +6,8 @@ import {connect} from 'react-redux'
 import background from '../../img/background.png'
 import box from '../../img/box.png'
 import {emailChanged,passwordChanged,nameChanged,titleChanged,RegisterUser} from '../../Actions/AuthAction'
+import Spinner from '../common/Spinner'
+
 // import WheelPicker from '../../Wheelpicker'
 
 // const wheelPickerData = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
@@ -39,6 +41,7 @@ import {emailChanged,passwordChanged,nameChanged,titleChanged,RegisterUser} from
           }else if(name.length > 10) {
             return   ToastAndroid.show('name should be of 10 letters long',ToastAndroid.LONG)
           } 
+          console.log(title)
                 const userData = {
                     name,
                     title,

@@ -59,7 +59,7 @@ class newsfeed extends Component {
     const { Subscribing, Subscribed } = profile;
     const { posts, loading, blogs,contacts } = this.props.post;
     let contact
-    if (isEmpty(profile) || loading) {
+    if ( loading) {
       return <Spinner color="orange" />;
     }
     if (isEmpty(profile)) {
